@@ -59,7 +59,9 @@ int git_branch_create(
 	git_repository *repository,
 	const char *branch_name,
 	const git_commit *commit,
-	int force)
+	int force,
+	const git_signature *signature,
+	const char *log_message)
 {
 	git_reference *branch = NULL;
 	git_buf canonical_branch_name = GIT_BUF_INIT;
@@ -72,7 +74,7 @@ int git_branch_create(
 		goto cleanup;
 
 	error = git_reference_create(&branch, repository,
-		git_buf_cstr(&canonical_branch_name), git_commit_id(commit), force, NULL, NULL);
+		git_buf_cstr(&canonical_branch_name), git_commit_id(commit), force, signature, log_message);
 
 	if (!error)
 		*ref_out = branch;
