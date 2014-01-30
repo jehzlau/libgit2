@@ -21,11 +21,6 @@ ctest -V . || exit $?
 # Now that we've tested the raw git protocol, let's set up ssh to we
 # can do the push tests over it
 
-killall git-daemon
-sudo start ssh
-ssh-keygen -t rsa -f ~/.ssh/id_rsa -N "" -q
-cat ~/.ssh/id_rsa.pub >>~/.ssh/authorized_keys
-ssh-keyscan -t rsa localhost >>~/.ssh/known_hosts
 
 export GITTEST_REMOTE_URL="ssh://localhost/$HOME/_temp/test.git"
 export GITTEST_REMOTE_USER=$USER
